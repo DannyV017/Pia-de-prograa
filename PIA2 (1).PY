@@ -56,13 +56,24 @@ def main():
           elif opcion_interna==3:
            print("\nEstadisticas: Personas vacunadas")
 #######################################################################################################################
-       elif opcion == 4:                        ###GRAFICAS###
-          if opcion_interna==1:
-           print ("\nGraficas: Casos de covid")
-          elif opcion_interna==2:
-           print("\nGraficas: Muertes")
-          elif opcion_interna==3:
-           print("\nGraficas: Personas vacunadas")
+                            ###GRAFICAS###
+       elif opcion == 4:  # GRAFICAS
+            if opcion_interna==1:
+                  selector_General='cases'
+                  print("\nGraficas: Casos de COVID-19")
+                  pais_buscado = input("Ingrese el país que quiera graficar: ")
+                  modulo2.graficar_casos(pais_buscado, selector_General)
+            elif opcion_interna==2:
+                  selector_General= 'deaths'
+                  selector_General = 'deaths'
+                  print("\nGraficas: Muertes por COVID-19")
+                  pais_buscado = input("Ingrese el país que quiera graficar: ")
+                  modulo2.graficar_casos(pais_buscado, selector_General)
+            elif opcion_interna==3:
+                  selector_General = 'recovered'
+                  print("\nGraficas: Personas recuperadas de COVID-19")
+                  pais_buscado = input("Ingrese el país que quiera graficar: ")
+                  modulo2.graficar_casos(pais_buscado, selector_General)
 #######################################################################################################################
        elif opcion == 5:                        ###BORRAR###
           if opcion_interna==1: 

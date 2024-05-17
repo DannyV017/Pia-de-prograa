@@ -1,6 +1,10 @@
 import requests
 import json
 import datetime
+import matplotlib.pyplot as plt
+from matplotlib.dates import DateFormatter, MonthLocator
+from datetime import datetime
+
 
 base_url = "https://disease.sh/v3/covid-19/historical" #API API API API API API API API API API API API API API API API
 def consulta_web(selector):
@@ -40,9 +44,44 @@ def consulta_Registros(selector):
 
 def Estadisticas():
  print("mxk")
+ 
+def graficar_casos(registro_buscado, selector):
+    with open('ALL_DATA.json', 'r') as archivo:
+        datos = json.load(archivo)
 
-def Graficas():
- print("mxk")
+        for pais in datos:
+            if pais['country'] == registro_buscado:
+                casos = pais['timeline'][selector]
+                fechas = list(casos.keys())
+                cantidad_casos = list(casos.values())
 
+                fechas_datetime = [datetime.strptime(fecha, '%m/%d/%y') for fecha in fechas]
+
+                plt.figure(figsize=(10, 6))
+                plt.plot(fechas_datetime, cantidad_casos, marker='o', linestyle='-')
+                plt.title(f'Cantidad de {selector} en {registro_buscado}')
+                plt.xlabel('Fecha')
+                plt.ylabel(f'{selector.capitalize()}')
+                plt.xticks(rotation=45)
+                plt.grid(True)
+                
+                # Formato de las fechas en el eje x
+                plt.gca().xaxis.set_major_formatter(DateFormatter('%b %Y'))  # Formato mes/ año
+                
+                # Establecer el rango del eje x desde enero de 2020 hasta enero de 2024
+                fecha_inicio = datetime(2020, 1, 1)
+                fecha_fin = datetime(2024, 1, 1)
+                plt.xlim(fecha_inicio, fecha_fin)
+                
+                # Formato de los números en el eje Y como enteros
+                plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: int(x)))
+                
+                plt.tight_layout()
+                plt.show()
+                break
+        else:
+            print("No se encontraron datos para el país especificado.")
+            
+            
 def Borrar():
  print("mxk")
